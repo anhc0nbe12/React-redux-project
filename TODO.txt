@@ -1,0 +1,18 @@
+1 create front-end
+
+
+2
+sử dụng Authorization Code Flow
+----------GET request to the /authorize
+https://accounts.spotify.com/en/authorize?client_id=ac74a4f365ff4bdbb1d4815a04b34d2c
+&redirect_uri=http://localhost:3000
+&scope=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20streaming%20playlist-read-private%20user-library-read%20user-read-email%20user-read-private
+&response_type=token
+
+----------POST request to the /api/token
+body application/x-www-form-urlencoded
+grant_type :authorization_code
+code:The authorization code returned from the previous request.
+redirect_uri:This parameter is used for validation only (there is no actual redirection). The value of this parameter
+				 						must exactly match the value of redirect_uri 
+										supplied when requesting the authorization code
