@@ -1,0 +1,113 @@
+import { useDispatch,useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { loginUser,reset_exclude_user } from '../features/user/userSlide'
+import { Form, Input, Button, Checkbox } from 'antd'
+import {toast} from 'react-toastify'
+
+function Login(){
+   const dispatch = useDispatch()
+   const navigate = useNavigate()
+   const {user, isSuccess, isError, message} = useSelector((state) => state.auth)
+   useEffect(() => {
+      if(user || isSuccess){
+         navigate('/')
+         dispatch(reset_exclude_user())
+      }
+      if(isError){
+        toast.error(message)
+      }
+   },[user,isSuccess,navigate,isError,message])
+
+  const onFinish = (values) => {
+    const data = {
+       client_id: values.username,
+       client_secret: values.password,
+    }
+     dispatch(loginUser(data))
+  }
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
+
+  return (
+    <Form
+      name="basic"
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 16,
+      }}
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  )
+}
+// function Login() {
+//   const AUTH_URL =
+//     'https://accounts.spotify.com/authorize?client_id=ac74a4f365ff4bdbb1d4815a04b34d2c&response_type=token&redirect_uri=http://localhost:3000&scope=streaming%20user-library-modify%20user-library-read%20user-modify-playback-state%20user-read-playback-state'
+
+//   return (
+//     <>
+//       <a href={AUTH_URL} className="btn btn-success btn-lg ">
+//         LOGIN TO SPOTIFY
+//       </a>
+//     </>
+//   )
+// }
+
+export default Login
