@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {userSevice} from '../../apiservice/userSevice'
+import {userService} from '../../apiservice/userService'
 
 function getWithExpiry(key) {
 	const itemStr = localStorage.getItem(key)
@@ -16,9 +16,6 @@ function getWithExpiry(key) {
 		localStorage.removeItem(key)
 		return null
 	}
-   console.log(typeof now.getTime() , typeof Number(item.expiry));
-   console.log(now.getTime() - item.expiry);
-
 	return item
 }
 const user = getWithExpiry('user')
@@ -32,7 +29,7 @@ const initialState = {
 
 export const loginUser = createAsyncThunk('login', async (user_id, thunkAPI) =>{
    try {
-      return await userSevice.get_token(user_id)
+      return await userService.get_token(user_id)
    } catch (error) {
       const message =
         (error.response &&
@@ -66,7 +63,6 @@ const userSlide = createSlice({
          })
    }
 })
-
 
 export const {reset_exclude_user} = userSlide.actions
 export default userSlide.reducer

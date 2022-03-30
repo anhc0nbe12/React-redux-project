@@ -1,12 +1,13 @@
 import { useDispatch,useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { loginUser,reset_exclude_user } from '../features/user/userSlide'
+import { useEffect, useState } from 'react'
+import { useNavigate} from 'react-router-dom'
+import { reset_exclude_user } from '../features/user/userSlide'
 import { Form, Input, Button, Checkbox } from 'antd'
 import {toast} from 'react-toastify'
 
 function Login(){
    const dispatch = useDispatch()
+   const [formData, setFormData] = useState('')
    const navigate = useNavigate()
    const {user, isSuccess, isError, message} = useSelector((state) => state.auth)
    useEffect(() => {
@@ -19,18 +20,18 @@ function Login(){
       }
    },[user,isSuccess,navigate,isError,message])
 
-  const onFinish = (values) => {
-    const data = {
-       client_id: values.username,
-       client_secret: values.password,
-    }
-     dispatch(loginUser(data))
-  }
+   
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
-
+  const onChange = (e) =>{
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }))
+  }
+  const onFinish = ()=>{}
   return (
     <Form
       name="basic"
@@ -45,6 +46,7 @@ function Login(){
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      onChange={onChange}
       autoComplete="off"
     >
       <Form.Item
@@ -56,6 +58,7 @@ function Login(){
             message: 'Please input your username!',
           },
         ]}
+        id='clientId'
       >
         <Input />
       </Form.Item>
@@ -69,6 +72,8 @@ function Login(){
             message: 'Please input your password!',
           },
         ]}
+        id='clientSecret'
+
       >
         <Input.Password />
       </Form.Item>
@@ -90,9 +95,12 @@ function Login(){
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
+        {/* <Button type="primary" htmlType="submit">
           Submit
-        </Button>
+        </Button> */}
+        <a href={`https://accounts.spotify.com/authorize?client_id=${formData.basic_username}&scopes=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20streaming%20playlist-read-private%20user-library-read%20user-read-email%20user-read-private&redirect_uri=http://localhost:3000&response_type=code`} className='btn btn-success btn-lg'>
+          login
+        </a>
       </Form.Item>
     </Form>
   )
