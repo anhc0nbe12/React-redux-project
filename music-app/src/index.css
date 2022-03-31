@@ -68,21 +68,52 @@ body{
   overflow: hidden;
   background-color: #000;
   border-radius: 3px;
-  overflow-y: auto;
   width: 280px;
   height: 380px;
 
 }
 
+
+
 .playlist-content-tracks{
+  overflow-y: auto;
+}
+.current-track,
+.tracks-content{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 40px;
+  color: #fff;
+  cursor: pointer;
 
 }
 
-.tracks-content{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 40px;
+.tracks-content:hover {
+  background-color: #999;
+}
+
+.current-track{
+  background-color: rgb(36, 32, 32);
+  cursor:default;
+  text-align: center;
+  justify-content: unset;
+
+}
+
+.current-track-img{
+  width: 70px;
+  height: 70px;
+  background-image: url('https://i.scdn.co/image/ab67706c0000bebb42db32d8a4364531fc519516');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.current-track-playbar{
+  flex: 1;
+}
+
+.current-track-playbar h3{
   color: #fff;
 }
 
@@ -144,7 +175,22 @@ body{
 .toggle-hide {
   transform: translateY(60%);
   animation: moveDown linear 0.4s;
+  will-change: translateY;
 } 
+audio::-webkit-media-controls-panel{
+  background-color: transparent;
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-toggle-closed-captions-button{
+  display: none;
+}
+audio{
+  height: 20px !important;
+  width: 95% !important;
+}
+
+
 @keyframes moveDown {
   from{
     transform: translateY(0);

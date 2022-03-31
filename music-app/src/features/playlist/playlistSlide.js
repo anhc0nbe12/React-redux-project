@@ -3,6 +3,7 @@ import {playlistService} from '../../apiservice/playlistService'
 
 const initialState = {
    tracks: [],
+   isPlay:{},
 }
 
 export const getPlaylist = createAsyncThunk('playlist', async (_, thunkAPI) =>{
@@ -25,6 +26,9 @@ const playlistSlide = createSlice({
    name:'playlist',
    initialState,
    reducers:{
+      setTrackPlay:(state, action) =>{
+         state.isPlay = action.payload
+      }
    },
    extraReducers:(builder) =>{
       builder
@@ -35,5 +39,5 @@ const playlistSlide = createSlice({
 })
 
 
-// export const {reset_exclude_user} = playlistSlide.actions
+export const {setTrackPlay} = playlistSlide.actions
 export default playlistSlide.reducer

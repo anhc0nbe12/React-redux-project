@@ -2,7 +2,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import { reset_exclude_user } from '../features/user/userSlide'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Checkbox } from 'antd'
 import {toast} from 'react-toastify'
 
 function Login(){
@@ -19,9 +19,7 @@ function Login(){
         toast.error(message)
       }
    },[user,isSuccess,navigate,isError,message])
-
    
-
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
