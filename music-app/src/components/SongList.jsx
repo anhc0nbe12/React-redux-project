@@ -8,7 +8,9 @@ import song_6 from '../assets/audio/ThereForYou_MartinGarrixTroyeSivan.mp3'
 import song_7 from '../assets/audio/UptownFunk_MarkRonsonBrunoMars.mp3'
 import song_8 from '../assets/audio/WithoutMe_Halsey.mp3'
 import { useState } from 'react'
+import {useSelector} from 'react-redux'
 function SongList() {
+  const {mutipleSong} = useSelector((state) => state.playlist)
   const songs = [
     {
       name: 'Bang Bang',
@@ -45,6 +47,7 @@ function SongList() {
   ]
   const [hidePanner, setHidePanner] = useState(true)
   const [resume, setResume] = useState(false)
+
   const panner = (e) =>{
     e.target.checked ? setHidePanner(false):setHidePanner(true)
   }
@@ -53,6 +56,7 @@ function SongList() {
   }
   return (
     <div className="songlist-wrapper">
+      {mutipleSong.length >0 &&(
         <div className="show-pan-control">
           <label htmlFor="resume">Resume All</label>
           <input
@@ -63,8 +67,9 @@ function SongList() {
             onChange={resumeAll}
           />
         </div>
+      )}
         <div className="show-pan-control">
-          <label htmlFor="showpan">Show Pan Control</label>
+          <label htmlFor="showpan">Hide Pan Control</label>
           <input
             type="checkbox"
             name="showpan"

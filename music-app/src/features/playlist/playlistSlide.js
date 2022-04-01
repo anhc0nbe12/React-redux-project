@@ -31,13 +31,11 @@ const playlistSlide = createSlice({
          state.isPlay = action.payload
       },
       pushToPlay: (state, action) => {
-         console.log(!(action.payload.index in state.mutipleSong));
+         if (action.payload.resume ) {
+            state.mutipleSong = [action.payload.index]
+         }
          if( !(state.mutipleSong.includes(action.payload.index)) ){
-            if (action.payload.resume ) {
-               state.mutipleSong = [action.payload.index]
-            } else{
                state.mutipleSong.push(action.payload.index) 
-            }
          }
       },
       removeSong: (state, action) => {
