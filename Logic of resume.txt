@@ -1,0 +1,7 @@
+resume === true đang dừng vài bài nhạc
+-play music: mà chơi 1 bài nhạc => cập nhật lại toàn array   			done
+-rmv music : k làm j hết									done
+
+resume === false đang chơi nhạc		
+-play music: mà chơi thêm 1 bài nhạc => thêm bài nhạc này vào array	  	done
+-rmv music : mà dừng 1 bài nhạc => xóa bài nhạc này khỏi array 			done

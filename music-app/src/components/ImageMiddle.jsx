@@ -1,8 +1,10 @@
+import cafesketch from '../assets/cafesketch.png'
+
 
 function ImageMiddle() {
   return (
-    <div>
-      hello
+    <div className='img-mid'>
+      <img src={cafesketch} alt="" />
     </div>
   )
 }
