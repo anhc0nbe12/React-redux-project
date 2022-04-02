@@ -17,7 +17,7 @@ const get_token = async ({client_id,client_secret, code}) =>{
    }
    const data = {
       'grant_type':'authorization_code',
-      'redirect_uri' : 'http://localhost:3000',
+      'redirect_uri' : 'https://react-redux-project-self.vercel.app/',
       'code': code,
    }
 
