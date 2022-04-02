@@ -97,7 +97,7 @@ function Login(){
         {/* <Button type="primary" htmlType="submit">
           Submit
         </Button> */}
-        <a href={`https://accounts.spotify.com/authorize?client_id=${formData.basic_username}&scopes=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20streaming%20playlist-read-private%20user-library-read%20user-read-email%20user-read-private&redirect_uri=http://localhost:3000&response_type=code`} className='btn btn-success btn-lg'>
+        <a href={`https://accounts.spotify.com/authorize?client_id=${formData.basic_username}&scopes=user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20streaming%20playlist-read-private%20user-library-read%20user-read-email%20user-read-private&redirect_uri=https://react-redux-project-self.vercel.app/&response_type=code`} className='btn btn-success btn-lg'>
           login
         </a>
       </Form.Item>
