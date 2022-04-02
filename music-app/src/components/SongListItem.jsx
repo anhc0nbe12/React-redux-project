@@ -9,7 +9,7 @@ function SongListItem({ song, hidePanner, resume ,index}) {
   const [audio,setAudio] = useState()
   const [createContext, setCreateContext] = useState(false)
   const [panner, setPanner] = useState()
-  const [disablePan, setDisablePan] = useState(true)
+  const [pannerVol,setPannerVol] = useState(0)
   const dispatch = useDispatch()
   const {mutipleSong} = useSelector((state) => state.playlist)
   const { name, url } = song
@@ -22,10 +22,8 @@ function SongListItem({ song, hidePanner, resume ,index}) {
       audio1.src = url
       setAudio(audio1)
     }
-    if(panner){
-      setDisablePan(false)
-    }
-  },[panner])
+    //eslint-disable-next-line
+  },[])
   // mỗi lần resume thì phải dừng các bài nhạc
   useEffect(()=>{
     if(resume){
@@ -37,6 +35,7 @@ function SongListItem({ song, hidePanner, resume ,index}) {
           }
        });
     }
+    //eslint-disable-next-line
    },[resume])
    // mỗi lần play/pause
    useEffect(() => {
@@ -50,8 +49,8 @@ function SongListItem({ song, hidePanner, resume ,index}) {
            dispatch(removeSong({index, resume}))
         }
       }
-      setDisablePan(!disablePan)
      }
+     //eslint-disable-next-line
    }, [play])
 
   const onChangeVolume = (e) => {
@@ -63,14 +62,19 @@ function SongListItem({ song, hidePanner, resume ,index}) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       const audioContext = new AudioContext();
       const track = audioContext.createMediaElementSource(audio);
-      const stereoNode = new StereoPannerNode(audioContext, { pan: 0 });
+      const stereoNode = new StereoPannerNode(audioContext, { pan: pannerVol });
       track.connect(stereoNode).connect(audioContext.destination);
       setPanner(stereoNode)
       setCreateContext(true)
     }
   }
   const onChangeSpan = (e) => {
-    panner.pan.value = e[0]
+    
+    if(panner){
+      panner.pan.value = e[0]
+    } else {
+      setPannerVol(e[0])
+    }
   }
 
   return (
@@ -112,7 +116,6 @@ function SongListItem({ song, hidePanner, resume ,index}) {
             min={-1}
             max={1}
             className="slider--custom"
-            disabled={disablePan}
           />
           <span>R</span>
         </div>

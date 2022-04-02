@@ -45,11 +45,11 @@ function SongList() {
       url: song_8,
     },
   ]
-  const [hidePanner, setHidePanner] = useState(true)
+  const [hidePanner, setHidePanner] = useState(false)
   const [resume, setResume] = useState(false)
 
   const panner = (e) =>{
-    e.target.checked ? setHidePanner(false):setHidePanner(true)
+    e.target.checked ? setHidePanner(true):setHidePanner(false)
   }
   const resumeAll = (e) =>{
     e.target.checked ? setResume(true) : setResume(false)
@@ -69,7 +69,7 @@ function SongList() {
         </div>
       )}
         <div className="show-pan-control">
-          <label htmlFor="showpan">Hide Pan Control</label>
+          <label htmlFor="showpan">Show Pan Control</label>
           <input
             type="checkbox"
             name="showpan"
