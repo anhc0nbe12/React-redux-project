@@ -1,8 +1,10 @@
 import ImageMiddle from '../components/ImageMiddle'
 import PlayList from '../components/PlayList'
 import SongList from '../components/SongList'
-import {useEffect} from 'react'
-import { loginUser} from '../features/user/userSlide'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import { useEffect } from 'react'
+import { loginUser } from '../features/user/userSlide'
 import { useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 
@@ -11,24 +13,28 @@ function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
   useEffect(() => {
     const code = searchParams.get('code')
-    if (code){
+    if (code) {
       searchParams.delete('code')
       const data = {
-        code : code,
-        client_id : process.env.REACT_APP_CLIENT_ID,
-        client_secret : process.env.REACT_APP_CLIENT_SECRET,
+        code: code,
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET,
       }
       dispatch(loginUser(data))
-      setSearchParams('', {replace:true})
+      setSearchParams('', { replace: true })
     }
-  },[searchParams,dispatch,setSearchParams])
-  
+  }, [searchParams, dispatch, setSearchParams])
+
   return (
-    <>
-      <PlayList/>
-      <ImageMiddle/>
-      <SongList/>
-    </>
+    <div className="main-layout container">
+      <Header/>
+      <div className="main-layout-content ">
+        <PlayList />
+        <ImageMiddle />
+        <SongList />
+      </div>
+      <Footer/>
+    </div>
   )
 }
 

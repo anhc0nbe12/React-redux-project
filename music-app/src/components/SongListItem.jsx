@@ -2,7 +2,7 @@ import { Slider } from 'antd'
 import { FaUser, FaPlay, FaVolumeUp, FaPause } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {pushToPlay, removeSong} from '../features/playlist/playlistSlide'
+import {pushToPlay, removeSong, removeAllSong} from '../features/playlist/playlistSlide'
 
 function SongListItem({ song, hidePanner, resume ,index}) {
   const [play, setPlay] = useState(false)
@@ -58,6 +58,7 @@ function SongListItem({ song, hidePanner, resume ,index}) {
   }
   const onClick = () => {
     setPlay(!play)
+    dispatch(removeAllSong(false))
     if(!createContext){
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       const audioContext = new AudioContext();

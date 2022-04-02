@@ -7,8 +7,9 @@ import song_5 from '../assets/audio/SomethingJustLikeThis_TheChainsmokersColdpla
 import song_6 from '../assets/audio/ThereForYou_MartinGarrixTroyeSivan.mp3'
 import song_7 from '../assets/audio/UptownFunk_MarkRonsonBrunoMars.mp3'
 import song_8 from '../assets/audio/WithoutMe_Halsey.mp3'
-import { useState } from 'react'
-import {useSelector} from 'react-redux'
+import { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {removeAllSong} from '../features/playlist/playlistSlide'
 function SongList() {
   const {mutipleSong} = useSelector((state) => state.playlist)
   const songs = [
@@ -48,6 +49,17 @@ function SongList() {
   const [hidePanner, setHidePanner] = useState(false)
   const [resume, setResume] = useState(false)
 
+  const dispatch = useDispatch()
+  const {hardPause} = useSelector((state) => state.playlist)
+
+  useEffect(() => {
+    if(hardPause){
+      setResume(true)
+    }
+    if(!resume){
+      dispatch(removeAllSong(false))
+    }
+  },[hardPause])
   const panner = (e) =>{
     e.target.checked ? setHidePanner(true):setHidePanner(false)
   }

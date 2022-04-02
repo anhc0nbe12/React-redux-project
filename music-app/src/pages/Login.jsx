@@ -31,7 +31,8 @@ function Login(){
   }
   const onFinish = ()=>{}
   return (
-    <Form
+    <div style={{display:'flex',justifyContent:'center', alignItems:'center', height:'100vh'}}>
+<Form
       name="basic"
       labelCol={{
         span: 8,
@@ -101,6 +102,8 @@ function Login(){
         </a>
       </Form.Item>
     </Form>
+    </div>
+    
   )
 }
 // function Login() {

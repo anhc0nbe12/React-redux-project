@@ -4,7 +4,8 @@ import {playlistService} from '../../apiservice/playlistService'
 const initialState = {
    tracks: [],
    isPlay:{},
-   mutipleSong: [] ,
+   mutipleSong: [],
+   hardPause: false,
 }
 
 export const getPlaylist = createAsyncThunk('playlist', async (_, thunkAPI) =>{
@@ -43,6 +44,9 @@ const playlistSlide = createSlice({
          if (index !== -1){
             state.mutipleSong.splice(index,1)
          }
+      },
+      removeAllSong:(state, action) => {
+         state.hardPause = action.payload
       }
    },
    extraReducers:(builder) =>{
@@ -54,5 +58,5 @@ const playlistSlide = createSlice({
 })
 
 
-export const {setTrackPlay,pushToPlay,removeSong} = playlistSlide.actions
+export const {setTrackPlay,pushToPlay,removeSong,removeAllSong} = playlistSlide.actions
 export default playlistSlide.reducer
