@@ -37,14 +37,20 @@ function Header() {
   }
   const handleCancelTimer = () => {
     setTimerModal(false)
-    document.querySelector("#form-timer").value=''
+    
   }
   const showTimerModal = () => {
     setTimerModal(true)
+    document.querySelector("#form-timer").value=''
   }
 
   const onChange = (e) =>{
-   setTime(e.target.value ) // to seconds
+    // to seconds
+   if(e.target.value <= 0 ){
+     setTime(25)
+   } else{
+    setTime(e.target.value )
+   }
   }
   const setTimerRun = () =>{
    setRun(!run)

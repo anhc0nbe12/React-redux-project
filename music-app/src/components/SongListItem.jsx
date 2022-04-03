@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {pushToPlay, removeSong, removeAllSong} from '../features/playlist/playlistSlide'
 
-function SongListItem({ song, hidePanner, resume ,index}) {
+function SongListItem({ song, hidePanner, pause ,index}) {
   const [play, setPlay] = useState(false)
   const [audio,setAudio] = useState()
   const [createContext, setCreateContext] = useState(false)
@@ -24,9 +24,9 @@ function SongListItem({ song, hidePanner, resume ,index}) {
     }
     //eslint-disable-next-line
   },[])
-  // mỗi lần resume thì phải dừng các bài nhạc
+  // mỗi lần pause thì phải dừng các bài nhạc
   useEffect(()=>{
-    if(resume){
+    if(pause){
        setPlay(false)
     } else {
        mutipleSong.forEach((item) => {
@@ -36,17 +36,17 @@ function SongListItem({ song, hidePanner, resume ,index}) {
        });
     }
     //eslint-disable-next-line
-   },[resume])
+   },[pause])
    // mỗi lần play/pause
    useEffect(() => {
      if(audio){
       if (play) {
         audio.play()
-        dispatch(pushToPlay({index, resume}))
+        dispatch(pushToPlay({index, pause}))
       } else {
         audio.pause()
-        if(!resume){
-           dispatch(removeSong({index, resume}))
+        if(!pause){
+           dispatch(removeSong({index, pause}))
         }
       }
      }

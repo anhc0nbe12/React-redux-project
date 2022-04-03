@@ -47,36 +47,38 @@ function SongList() {
     },
   ]
   const [hidePanner, setHidePanner] = useState(false)
-  const [resume, setResume] = useState(false)
+  const [pause, setPause] = useState(false)
 
   const dispatch = useDispatch()
   const {hardPause} = useSelector((state) => state.playlist)
 
   useEffect(() => {
     if(hardPause){
-      setResume(true)
+      setPause(true)
     }
-    if(!resume){
+    if(!pause){
       dispatch(removeAllSong(false))
+    } else {
+      document.querySelector('#pause').checked = true
     }
   },[hardPause])
   const panner = (e) =>{
     e.target.checked ? setHidePanner(true):setHidePanner(false)
   }
-  const resumeAll = (e) =>{
-    e.target.checked ? setResume(true) : setResume(false)
+  const pauseAll = (e) =>{
+    e.target.checked ? setPause(true) : setPause(false)
   }
   return (
     <div className="songlist-wrapper">
       {mutipleSong.length >0 &&(
         <div className="show-pan-control">
-          <label htmlFor="resume">Resume All</label>
+          <label htmlFor="pause">{pause? 'Resume All':'Pause All'}</label>
           <input
             type="checkbox"
-            name="resume"
-            id="resume"
+            name="pause"
+            id="pause"
             className="checkbox"
-            onChange={resumeAll}
+            onChange={pauseAll}
           />
         </div>
       )}
@@ -91,7 +93,7 @@ function SongList() {
           />
         </div>
       {songs.map((item, index) => (
-        <SongListItem song={item} index={index} key={index} hidePanner={hidePanner} resume={resume}/>
+        <SongListItem song={item} index={index} key={index} hidePanner={hidePanner} pause={pause}/>
       ))}
     </div>
   )
