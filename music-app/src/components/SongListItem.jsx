@@ -1,15 +1,16 @@
 import { Slider } from 'antd'
 import { FaUser, FaPlay, FaVolumeUp, FaPause } from 'react-icons/fa'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {pushToPlay, removeSong, removeAllSong} from '../features/playlist/playlistSlide'
 
 function SongListItem({ song, hidePanner, pause ,index}) {
   const [play, setPlay] = useState(false)
   const [audio,setAudio] = useState()
-  const [createContext, setCreateContext] = useState(false)
-  const [panner, setPanner] = useState()
-  const [pannerVol,setPannerVol] = useState(0)
+  const createContext  = useRef(false)
+  const panner = useRef()
+  const pannerVol = useRef(0)
+  // const [pannerVol,setPannerVol] = useState(0)
   const dispatch = useDispatch()
   const {mutipleSong} = useSelector((state) => state.playlist)
   const { name, url } = song
@@ -20,6 +21,10 @@ function SongListItem({ song, hidePanner, pause ,index}) {
       const audio1 = document.createElement('audio')
       audio1.id = `audio_${index}`
       audio1.src = url
+      audio1.onended = () =>{
+        setPlay(false)
+        dispatch(removeSong({index, pause}))
+      }
       setAudio(audio1)
     }
     //eslint-disable-next-line
@@ -59,22 +64,22 @@ function SongListItem({ song, hidePanner, pause ,index}) {
   const onClick = () => {
     setPlay(!play)
     dispatch(removeAllSong(false))
-    if(!createContext){
+    if(!createContext.current){
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       const audioContext = new AudioContext();
       const track = audioContext.createMediaElementSource(audio);
-      const stereoNode = new StereoPannerNode(audioContext, { pan: pannerVol });
+      const stereoNode = new StereoPannerNode(audioContext, { pan: pannerVol.current });
       track.connect(stereoNode).connect(audioContext.destination);
-      setPanner(stereoNode)
-      setCreateContext(true)
+      panner.current = stereoNode
+      createContext.current = true
     }
   }
   const onChangeSpan = (e) => {
     
-    if(panner){
-      panner.pan.value = e[0]
+    if(panner.current){
+      panner.current.pan.value = e[0]
     } else {
-      setPannerVol(e[0])
+      pannerVol.current = e[0]
     }
   }
 

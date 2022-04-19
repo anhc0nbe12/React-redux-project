@@ -13,9 +13,7 @@ function Header() {
   const [run, setRun] = useState(false)
   const dispatch = useDispatch()
 
-  useEffect(() =>{
-
-  })
+  // template string 
   const darkMode = (e) => {
     const root = document.querySelector(':root')
     const background_img = document.querySelector('#background_img')

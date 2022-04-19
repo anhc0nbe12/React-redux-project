@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {removeAllSong} from '../features/playlist/playlistSlide'
 function SongList() {
-  const {mutipleSong} = useSelector((state) => state.playlist)
   const songs = [
     {
       name: 'Bang Bang',
@@ -50,14 +49,16 @@ function SongList() {
   const [pause, setPause] = useState(false)
 
   const dispatch = useDispatch()
-  const {hardPause} = useSelector((state) => state.playlist)
+  const {hardPause, mutipleSong} = useSelector((state) => state.playlist)
 
   useEffect(() => {
     if(hardPause){
       setPause(true)
     }
-    if(!pause){
-      dispatch(removeAllSong(false))
+    if(!pause ){
+      if(mutipleSong.length>0){
+        dispatch(removeAllSong(false))
+      }
     } else {
       document.querySelector('#pause').checked = true
     }
