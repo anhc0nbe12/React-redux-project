@@ -62,6 +62,7 @@ function SongList() {
     } else {
       document.querySelector('#pause').checked = true
     }
+     //eslint-disable-next-line
   },[hardPause])
   const panner = (e) =>{
     e.target.checked ? setHidePanner(true):setHidePanner(false)

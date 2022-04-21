@@ -1,7 +1,7 @@
 import cafesketch_inverted from '../assets/img/cafesketch_inverted.png'
 import cafesketch from '../assets/img/cafesketch.png'
 import { Modal } from 'antd'
-import { useEffect, useState} from 'react'
+import {  useState} from 'react'
 import Timer from './Timer'
 import {useDispatch} from 'react-redux'
 import {removeAllSong} from '../features/playlist/playlistSlide'

@@ -18,6 +18,7 @@ function CurrentPlay() {
         dispatch(removeAllSong(false))
       }
     }
+    //eslint-disable-next-line
   },[hardPause])
   return (
     <div className="current-track">

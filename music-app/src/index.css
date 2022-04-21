@@ -107,7 +107,7 @@ body{
 
 
 .playlist-content-tracks{
-  overflow-y: scroll;
+  overflow: auto;
   height: 100%;
 }
 .current-track,
@@ -121,7 +121,7 @@ body{
 
 }
 .tracks-content:last-child{
-  margin-bottom: 100px;
+  margin-bottom: 125px;
 }
 .tracks-content:hover {
   background-color: #999;
